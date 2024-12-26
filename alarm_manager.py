@@ -26,7 +26,7 @@ def set_alarm_time(hour, minute):
     alarm_scheduler = CronTab(user=user)
     old_job = alarm_scheduler.find_command('sh')
     alarm_scheduler.remove(old_job)
-    alarm = alarm_scheduler.new(command=f'sh /home/{user}/python/bible_project_alarm_clock/play_alarm.sh')
+    alarm = alarm_scheduler.new(command=f'sh /home/{user}/youtube_alarm_clock/play_alarm.sh')
     alarm.hour.on(hour)
     alarm.minute.on(minute)
     alarm_scheduler.write()
