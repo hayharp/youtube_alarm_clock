@@ -40,8 +40,9 @@ def alarm():
                     url = cache[item][request.form['selector']]
                 except (KeyError, TypeError):
                     pass
-            yt_audio.extract_audio(url)
-            message = f'Current alarm set to play "{request.form['selector']}" at {alarm_manager.get_alarm_time()}'
+            alarm_manager.set_video_name(request.form['selector'])
+            yt_audio.extract_audio_bg(url)
+            message = f"Current alarm set to play {request.form['selector']} at {alarm_manager.get_alarm_time()}"
         if request.form['action'] == 'Set Time':
             if request.form['alarm-time'] == '':
                 alarm_manager.remove_alarm()

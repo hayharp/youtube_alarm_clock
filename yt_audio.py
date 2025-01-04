@@ -1,6 +1,7 @@
 '''Grabs videos from YouTube and extracts an audio stream from the desired video'''
 
 import configparser, json, time
+from threading import Thread
 from yt_dlp import YoutubeDL
 
 import alarm_manager
@@ -100,7 +101,9 @@ def get_videos(playlist_url):
 
 def extract_audio(video_url):
     with YoutubeDL(AUDIO_EXTRACT_OPTIONS) as ytdl:
+        # alarm_manager.set_video_name(ytdl.sanitize_info(ytdl.extract_info(video_url))['title'])
         ytdl.download(video_url)
-        alarm_manager.set_video_name(ytdl.sanitize_info(ytdl.extract_info(video_url))['title'])
     
-    
+def extract_audio_bg(video_url):
+    thread = Thread(target=extract_audio, args=[video_url])
+    thread.start()
